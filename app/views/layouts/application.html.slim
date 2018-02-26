@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title Post manager
+
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+  body
+    header
+      = render 'layouts/navbar'
+    - flash.each do |name, msg|
+      = content_tag :div, msg, class: "alert alert-info"
+    .main-content.container-fluid.px-0.pb-0
+      = yield
+    footer
+      .container-fluid.bg-black.text-white
+        .container.p-3.text-right
+          a.mx-3.fa.fa-twitter{href="https://www.twitter.com/" target="_blank"}
+          a.mx-3.fa.fa-linkedin{href="https://www.linkedin.com/" target="_blank"}
