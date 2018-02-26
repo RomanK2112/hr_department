@@ -17,3 +17,20 @@
 /yarn-error.log
 
 .byebug_history
+
+# Mac finder artifacts
+.DS_Store
+
+# Netbeans project directory
+/nbproject/
+
+# Textmate project files
+/*.tmproj
+
+# vim artifacts
+**.swp
+
+.project
+.idea/
+
+config/secrets.yml
