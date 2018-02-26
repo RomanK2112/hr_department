@@ -1,24 +1,11 @@
-# README
+## App for administrates employees
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Rails website.
 
-Things you may want to cover:
+## Project configs
 
-* Ruby version
+Ruby version - 2.5.0
 
-* System dependencies
+Rails version - 5.1.5
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Database - postgresql
