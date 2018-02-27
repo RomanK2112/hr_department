@@ -1,15 +1,13 @@
 class Admin::PostsController < Admin::AdminsController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:edit, :update, :destroy]
+  before_action :set_group, only: [:create]
 
   def index
-    @posts = Post.paginate(page: params[:page], per_page: Post.per_page)
-                 .order(created_at: :desc)
-  end
-
-  def show
+    @posts = Post.all
   end
 
   def new
+    @groups = Group.all
     @post = Post.new
   end
 
@@ -17,23 +15,24 @@ class Admin::PostsController < Admin::AdminsController
   end
 
   def create
-    @post = Post.new(post_params)
+    @post = Post.new(
+      title: params[:post][:title],
+      body: params[:post][:body],
+      file: params[:file]
+    )
     @post.user = current_user
+    @group.posts.push(@post)
 
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to @post }
-        format.json { render :show, status: :created, location: @post}
-      else
-        format.html { render :new }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    if @post.save
+      redirect_to admin_posts_path
+    else
+      render :new
     end
   end
 
   def update
     if @post.update(post_params)
-      redirect_to @post
+      redirect_to admin_posts_path
     else
       render :edit
     end
@@ -41,16 +40,20 @@ class Admin::PostsController < Admin::AdminsController
 
   def destroy
     @post.destroy
-    redirect_to posts_url
+    redirect_to admin_posts_path
   end
 
   private
 
-    def set_post
-      @post = Post.find(params[:id])
-    end
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
-    def post_params
-      params.require(:post).permit(:title, :body, :image)
-    end
+  def set_group
+    @group = Group.find(params[:group])
+  end
+  
+  def post_params
+    params.require(:post).permit(:title, :body, :file)
+  end
 end

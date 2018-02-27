@@ -1,0 +1,17 @@
+.container-fluid.bg-light.p-0.mt-3
+  .container
+    - @posts.includes(:user).each do |post|
+      .card.my-3
+        div
+          .row-actions.font-italic
+            = "Written by: #{post.user.name}"
+        .row-actions.font-italic
+          = "Group: #{post.group.name}"
+        = post.body
+        .row-actions
+          = link_to 'Delete', admin_post_path(post), method: :delete, data: {confirm: 'Are you sure?'}, class: 'destroy-action' if current_user.id == post.user_id
+
+        .title-post
+          = link_to 'File here', post.file.url, target: :_blank unless post.file.url.blank?
+    h4.links-color
+      = link_to 'New Post', new_admin_post_path

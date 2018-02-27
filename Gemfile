@@ -7,6 +7,8 @@ end
 
 # For stylesheets
 gem 'bootstrap', '~> 4.0.0'
+# For file uploadings
+gem 'carrierwave', '~> 1.0'
 # For authentication
 gem 'devise'
 gem 'jquery-rails'

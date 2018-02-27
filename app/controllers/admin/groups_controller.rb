@@ -65,11 +65,11 @@ class Admin::GroupsController < Admin::AdminsController
 
   private
 
-    def set_group
-      @group = Group.find(params[:id])
-    end
+  def set_group
+    @group = Group.find(params[:id])
+  end
 
-    def group_params
-      params.require(:group).permit(:name, :description)
-    end
+  def group_params
+    params.require(:group).permit(:name, :description)
+  end
 end
