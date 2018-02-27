@@ -7,6 +7,8 @@ end
 
 # For stylesheets
 gem 'bootstrap', '~> 4.0.0'
+# For file uploadings
+gem 'carrierwave', '~> 1.0'
 # For authentication
 gem 'devise'
 gem 'jquery-rails'
@@ -45,6 +47,7 @@ end
 
 group :development do
   gem 'web-console', '>= 3.3.0'
+  gem 'letter_opener'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'pry-rails'
   gem 'spring'

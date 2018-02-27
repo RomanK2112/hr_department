@@ -14,3 +14,28 @@
  *= require_self
  */
  @import "bootstrap";
+
+ .title-post {
+   a {
+     color: rgba(30, 158, 178, 0.5);
+     &:hover {
+       text-decoration: none !important;
+       color: rgba(30, 158, 178, 1);
+     }
+   }
+ }
+
+ .row-actions {
+   a {
+     padding-left: 12px;
+     &:first-child {
+       padding-left: 0;
+     }
+   }
+   .destroy-action {
+     color: red;
+   }
+   .edit-action {
+     color: #0101f3;
+   }
+ }

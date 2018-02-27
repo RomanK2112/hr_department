@@ -1,0 +1,25 @@
+.container.my-3
+  h2
+    | Create new group
+  = form_for @post, url: admin_posts_path(@post) do |f|
+    .form-group.field
+      = f.label :title
+        | Title
+      = f.text_field :title, autofocus: true, class: "form-control", placeholder: ("Enter title"), type: "name", required: true
+    .form-group.field
+      = f.label :body
+        | Post body
+      = f.text_area :body, autofocus: true, class: "form-control", placeholder: ("Enter text"), type: "last_name", required: true, rows: 5, cols: 120
+    .form-group
+      = f.label :group
+        | Select group
+      .my-3
+        = select_tag :group,
+                     options_from_collection_for_select(@groups, :id, :name, selected: params[:group]),
+                     prompt: 'Group'
+    .form-group
+      = f.file_field :file, name: 'file'
+    .my-3
+      = f.submit "Create", type: "submit", class: "btn btn-primary"
+  h4.my-3.title-post
+    = link_to "Back", admin_admins_path
