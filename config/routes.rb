@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :admins
 
+    resources :posts
+    
     resources :users, only: [:index, :show, :new, :create, :destroy, :update, :edit] do
       member do
         put '/toggle_admin', action: :toggle_admin, as: 'toggle'
