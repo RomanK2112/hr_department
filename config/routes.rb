@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :groups, only: [:index, :edit, :new, :create, :update, :destroy] do
       collection do
         post '/add_member', action: :add_member, as: 'add_member'
+        delete '/destroy_member', action: :destroy_member, as: 'destroy_member'
       end
     end
 
