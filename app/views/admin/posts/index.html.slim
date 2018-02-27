@@ -7,6 +7,7 @@
             = "Written by: #{post.user.name}"
         .row-actions.font-italic
           = "Group: #{post.group.name}"
+        = link_to post.title, admin_post_path(post)
         = post.body
         .row-actions
           = link_to 'Delete', admin_post_path(post), method: :delete, data: {confirm: 'Are you sure?'}, class: 'destroy-action' if current_user.id == post.user_id

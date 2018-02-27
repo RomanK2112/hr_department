@@ -9,7 +9,7 @@
     .form-group.field
       = f.label :body
         | Post body
-      = f.text_field :body, autofocus: true, class: "form-control", placeholder: ("Enter your last name"), type: "last_name", required: true
+      = f.text_area :body, autofocus: true, class: "form-control", placeholder: ("Enter text"), type: "last_name", required: true, rows: 5, cols: 120
     .form-group
       = f.label :group
         | Select group
