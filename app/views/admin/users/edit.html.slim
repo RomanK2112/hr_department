@@ -34,4 +34,4 @@
   .actions
     = button_to "Cancel my account", admin_user_path(@user), data: { confirm: "Are you sure that you want destroy your account?" }, method: :delete, class: "btn btn-danger"
   h4.my-3.title-post
-    = link_to "Back", current_user.is_admin ? admin_admins_path : admin_consultant_path(current_user.id)
+    = link_to "Back", admin_users_path
