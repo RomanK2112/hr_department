@@ -1,0 +1,37 @@
+.container.my-3
+  h4
+    | #{@user.name}
+  h4
+    | My current email: #{@user.email}
+  = form_for @user, url: admin_user_path(@user), html: { method: :put } do |f|
+    .form-group.field
+      = f.label :email, for: 'exampleInputEmail1'
+        | Email address
+      = f.email_field :email, autofocus: true, class: "form-control", "aria-describedby": "emailHelp"
+    .form-group.field
+      = f.label :password, for: 'exampleInputPassword2'
+        | Password
+        - if @minimum_password_length
+          em
+            | (
+            = @minimum_password_length
+            |  characters minimum)
+      = f.password_field :password, autocomplete: "off", id: "exampleInputPassword2", class: "form-control", placeholder: "Password", required: true
+    .form-group.field
+      = f.label :password_confirmation
+      br
+      = f.password_field :password_confirmation, autocomplete: "off", id: "exampleInputPassword3", class: "form-control", placeholder: "Password", required: true
+      br
+    .form-group.field
+      = f.label :current_password
+        | We need your current password to confirm your changes
+      br
+      = f.password_field :current_password, autocomplete: "off", class: "form-control", required: true
+    .actions
+      = f.submit "Update", type: "submit", class: "btn btn-primary"
+  h4.my-3
+    | Cancel my account
+  .actions
+    = button_to "Cancel my account", admin_user_path(@user), data: { confirm: "Are you sure that you want destroy your account?" }, method: :delete, class: "btn btn-danger"
+  h4.my-3.title-post
+    = link_to "Back", current_user.is_admin ? admin_admins_path : admin_consultant_path(current_user.id)

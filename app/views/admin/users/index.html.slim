@@ -1,0 +1,44 @@
+.container
+  h4.my-3.title-post.text-right
+    = link_to "Create new consultant", new_admin_user_path
+  table.table.table-striped
+    thead
+      tr
+        th scope="col"
+          h4
+            | Name
+        th scope="col"
+          h4
+            | Email
+        th scope="col"
+          h4
+            | User role
+        th.text-center scope="col"
+          h4
+            | Rights
+        th.text-center scope="col"
+          h4
+            | Destroy employee
+    - @users.each do |user|
+        tbody
+          tr
+            td
+              h5.title-post
+                = link_to user.name, admin_user_path(user.id)
+            td
+              h5
+                = user.email
+            td
+              h5
+                = user.is_admin? ? 'Admin' : 'Employee'
+            td
+              h5.text-center
+                - if user.is_admin?
+                  = button_to "Revoke a. rights", toggle_admin_users_path(user.id), method: :put, class: "btn btn-danger button-to",
+                          data: { confirm: "Are you sure?" }
+                - else
+                  = button_to "Grant a. rights", toggle_admin_users_path(user.id), method: :put, class: "btn btn-primary button-to",
+                          data:  { confirm: "Are you sure?" }
+            td
+              = button_to "Destroy consultant", admin_user_path(user.id), method: :delete, class: "btn btn-danger button-to",
+                       data: { confirm: "Are you sure, this action will destroy user from DB?" }

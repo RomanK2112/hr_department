@@ -4,4 +4,8 @@ class User < ApplicationRecord
   has_many   :membership
   has_many   :groups, through: :membership
   has_many   :posts
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 end
