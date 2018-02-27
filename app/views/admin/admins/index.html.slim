@@ -1,2 +1,31 @@
-h1
-  | You sign in as admin
+.container.my-3
+  .row
+    form.my-3
+      h5.font-weight-bold
+        | Filter by
+      .horizontal-divider
+        = form_tag admin_admins_path, remote: true do
+          .row.pl-3
+              = select_tag :group,
+                           options_from_collection_for_select(@groups, :id, :name, selected: params[:group]),
+                           prompt: 'Choose group'
+        .row.my-3
+          .col-6
+            = submit_tag 'Filter', class: 'btn btn-primary'
+          .col-6.pr-0
+            = link_to 'Clear filter', request.path, class: 'btn btn-danger'
+  .row
+    h4
+      | Group posts
+  - @groups.each do |group|
+    .row.my-3
+      .col-4
+        = group.name
+        .pl-3
+          - group.posts.each do |post|
+            p
+              .row
+                .col
+                  = post.title
+                .col
+                  = post.body

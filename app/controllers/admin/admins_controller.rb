@@ -3,6 +3,8 @@ class Admin::AdminsController < ActionController::Base
   layout 'admin'
 
   def index
+    @groups = Group.all.includes(:posts)
+    @groups = @groups.filter_groups(params[:group]) if params[:group].present?
   end
 
   private
