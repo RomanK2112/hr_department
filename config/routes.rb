@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
     resources :posts
 
-    resources :groups, only: [:index, :new, :create, :update, :destroy] do
+    resources :groups, only: [:index, :edit, :new, :create, :update, :destroy] do
       collection do
         post '/add_member', action: :add_member, as: 'add_member'
       end

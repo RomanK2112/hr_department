@@ -12,7 +12,7 @@
             | Description
         th scope="col"
           h4
-            | Number of members
+            | Members
         th scope="col"
           h4
             | Add member
@@ -25,13 +25,15 @@
           tr
             td
               h5.title-post
-                = group.name
+                = link_to group.name, edit_admin_group_path(group.id) 
             td
               h5
                 = group.description
             td
               h5
-                = group.users.count
+                - group.users.each do |user|
+                  p
+                    = user.name
             td
               .horizontal-divider
                 = form_tag add_member_admin_groups_path(id: group.id), method: :post, remote: true do
