@@ -1,6 +1,6 @@
 - if signed_in?
   - links = { '/employees/posts': 'My posts', '/users/sign_out': 'Sign out' }
-  - condition = current_user.is_admin ? { "#{admin_admins_path(id: current_user.id)}": 'Admin panel' } : ''
+  - condition = current_user.is_admin ? { "#{admin_admins_path(id: current_user.id)}": 'Admin panel' } : {}
   - links.merge!(condition)
 - else
   - links = { '/users/sign_in': 'Sign in'}
