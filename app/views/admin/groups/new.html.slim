@@ -1,0 +1,16 @@
+.container.my-3
+  h2
+    | Create new group
+  = form_for @group, url: admin_groups_path(@group) do |f|
+    .form-group.field
+      = f.label :name
+        | Name of group
+      = f.text_field :name, autofocus: true, class: "form-control", placeholder: ("Enter name of group"), type: "name", required: true
+    .form-group.field
+      = f.label :last
+        | Short description
+      = f.text_field :description, autofocus: true, class: "form-control", placeholder: ("Enter your last name"), type: "last_name", required: true
+      br
+      = f.submit "Create", type: "submit", class: "btn btn-primary"
+  h4.my-3.title-post
+    = link_to "Back", admin_admins_path
