@@ -1,0 +1,22 @@
+/ - links = { }
+.navbar.navbar-expand-lg.navbar-dark.bg-dark.py-4
+ .row.w-100.mx-5
+   .col-4
+     a.navbar-brand{href="/"}
+       .h2
+         | Post Manager
+   .col-8
+     .ml-auto
+       button.navbar-toggler{
+         aria-controls="navbarSupportedContent"
+         aria-expanded="false"
+         aria-label=("Toggle navigation")
+         data-target="#navbarSupportedContent"
+         data-toggle="collapse" type="button"
+       }
+     /   span.navbar-toggler-icon
+     / #navbarSupportedContent.collapse.navbar-collapse
+     /   ul.navbar-nav.ml-auto
+     /     - links.each do |key, link|
+     /       li.nav-item{class=("active" if request.path == ("/#{key}"))}
+     /         a.nav-link.h5{href="/#{key}"} = link
