@@ -1,0 +1,16 @@
+.container.my-3
+  h4
+    | #{@group.name}
+  = form_for @group, url: admin_group_path(@group), html: { method: :put } do |f|
+    .form-group.field
+      = f.label :group_name, for: 'exampleInputEmail1'
+        | Group name
+      = f.text_field :name, autofocus: true, class: "form-control", "aria-describedby": "emailHelp"
+    .form-group.field
+      = f.label :group_name, for: 'exampleInputEmail1'
+        | Group description
+      = f.text_field :description, autofocus: true, class: "form-control", "aria-describedby": "emailHelp"
+    .actions
+      = f.submit "Update", type: "submit", class: "btn btn-primary"
+  h4.my-3.title-post
+    = link_to "Back", admin_users_path

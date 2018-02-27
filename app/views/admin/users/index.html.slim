@@ -36,7 +36,9 @@
                 = user.is_admin? ? 'Admin' : 'Employee'
             td
               h5
-                = user.is_admin? ? 'Admin' : 'Employee'
+                - user.groups.each do |group|
+                  p
+                    = group.name
             td
               h5.text-center
                 - if user.is_admin?

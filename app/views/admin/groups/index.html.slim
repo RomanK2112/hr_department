@@ -1,0 +1,61 @@
+.container
+  h4.my-3.title-post.text-right
+    = link_to "Create new group", new_admin_group_path
+  table.table.table-striped
+    thead
+      tr
+        th scope="col"
+          h4
+            | Name
+        th scope="col"
+          h4
+            | Description
+        th scope="col"
+          h4
+            | Members
+        th scope="col"
+          h4
+            | Add member
+        th scope="col"
+          h4
+            | Destroy member
+        th scope="col"
+          h4
+            | Destroy group
+
+    - @groups.each do |group|
+        tbody
+          tr
+            td
+              h5.title-post
+                = link_to group.name, edit_admin_group_path(group.id)
+            td
+              h5
+                = group.description
+            td
+              h5
+                - group.users.each do |user|
+                  p
+                    = user.name
+            td
+              .horizontal-divider
+                = form_tag add_member_admin_groups_path(id: group.id), method: :post, remote: true do
+                  .row.pl-3
+                      = select_tag :user,
+                                   options_from_collection_for_select(@users, :id, :name, selected: params[:user]),
+                                   prompt: 'User'
+                  h5.my-3
+                    = submit_tag "Add member", class: "btn btn-primary button-to"
+            td
+              .horizontal-divider
+                = form_tag destroy_member_admin_groups_path(id: group.id), method: :delete, remote: true do
+                  .row.pl-3
+                      = select_tag :user,
+                                   options_from_collection_for_select(@users, :id, :name, selected: params[:user]),
+                                   prompt: 'User'
+                  h5.my-3
+                    = submit_tag "Destroy member", class: "btn btn-danger button-to"
+            td
+              h5.text-center
+                = button_to "Destroy group", admin_group_path(group.id), method: :delete, class: "btn btn-danger button-to",
+                        data: { confirm: "Are you sure?" }
