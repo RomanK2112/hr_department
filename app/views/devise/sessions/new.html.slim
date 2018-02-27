@@ -1,0 +1,22 @@
+.container
+  h2
+    | Log in
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .form-group.field
+      = f.label :email, for: 'exampleInputEmail1'
+        | Email address
+      = f.email_field :email, autofocus: true, id: "exampleInputEmail1", class: "form-control", "aria-describedby": "emailHelp", placeholder: ("Enter email"), type: "email"
+      small#emailHelp.form-text.text-muted
+        | We'll never share your email with anyone else.
+    .form-group.field
+      = f.label :password, for: 'exampleInputPassword2'
+        | Password
+      = f.password_field :password, autocomplete: "off", id: "exampleInputPassword2", class: "form-control", placeholder: "Password"
+      br
+      - if devise_mapping.rememberable?
+        .form-check
+          label.form-check-label
+            = f.check_box :remember_me
+            |  Remember me
+        .my-3
+          = f.submit "Log in", type: "submit", class: "btn btn-primary"

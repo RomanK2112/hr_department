@@ -1,3 +1,7 @@
+- if signed_in?
+  - links = { '/users/posts': 'My posts', '/users/sign_out': 'Sign out' }
+- else
+  - links = { '/users/sign_in': 'Sign in'}
 .navbar.navbar-expand-lg.navbar-light.mx-5.py-4
   .row.w-100
     .col-4
@@ -8,3 +12,8 @@
       .ml-auto
         button.navbar-toggler{aria-controls="navbarSupportedContent" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarSupportedContent" data-toggle="collapse" type="button"}
           span.navbar-toggler-icon
+        #navbarSupportedContent.collapse.navbar-collapse
+          ul.navbar-nav.ml-auto
+            - links.each do |key, link|
+              li.nav-item{class=("active" if request.path == ("#{key}"))}
+                a.nav-link.h5{href="#{key}"} = link
