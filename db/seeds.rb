@@ -5,13 +5,13 @@ admin = User.create_with(
   is_admin: true
 ).find_or_create_by(email: 'john@gmail.com')
 
-employee1 = User.create(
+employee1 = User.create_with(
   first_name: 'Bob',
   last_name: 'Worker',
   password: 'New1234!'
 ).find_or_create_by(email: 'bob@gmail.com')
 
-employee2 = User.create(
+employee2 = User.create_with(
   first_name: 'Jack',
   last_name: 'Programmer',
   password: 'New1234!'

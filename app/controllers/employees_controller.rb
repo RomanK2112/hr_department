@@ -19,6 +19,10 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def show_post
+    @post = Post.find(params[:id])
+  end
+
   private
 
   def set_employee

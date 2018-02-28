@@ -10,7 +10,7 @@
                   = "Written by: #{post.user.name}"
               .row-actions.font-italic
                 = "Group: #{post.group.name}"
-              = link_to post.title, admin_post_path(post)
+              = link_to post.title, show_post_employee_path(post.id)
               = post.body
               .title-post
                 = link_to 'File here', post.file.url, target: :_blank unless post.file.url.blank?
