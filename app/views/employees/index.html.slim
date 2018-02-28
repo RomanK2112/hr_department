@@ -1,0 +1,31 @@
+.container-fluid.bg-light.p-0.mt-3
+  .container
+    .row
+      .col-8
+        - @groups.each do |group|
+          - group.posts.each do |post|
+            .card.my-3
+              div
+                .row-actions.font-italic
+                  = "Written by: #{post.user.name}"
+              .row-actions.font-italic
+                = "Group: #{post.group.name}"
+              = link_to post.title, admin_post_path(post)
+              = post.body
+              .title-post
+                = link_to 'File here', post.file.url, target: :_blank unless post.file.url.blank?
+      .col-4
+        form.my-3
+          h5.font-weight-bold
+            | Filter by
+          .horizontal-divider
+            = form_tag employees_path, remote: true do
+              .row.pl-3
+                  = select_tag :group,
+                               options_from_collection_for_select(@groups, :id, :name, selected: params[:group]),
+                               prompt: 'Choose group'
+            .row.my-3
+              .col-6
+                = submit_tag 'Filter', class: 'btn btn-primary'
+              .col-6.pr-0
+                = link_to 'Clear filter', request.path, class: 'btn btn-danger'

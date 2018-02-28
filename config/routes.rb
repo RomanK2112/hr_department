@@ -2,10 +2,10 @@ Rails.application.routes.draw do
   devise_for :users
   root 'static_pages#index'
 
-  resources :employees
+  resources :employees, only: [:index, :edit, :update]
 
   namespace :admin do
-    resources :admins
+    resources :admins, only: [:index, :edit, :update]
 
     resources :posts
 
