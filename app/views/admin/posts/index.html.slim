@@ -1,5 +1,7 @@
 .container-fluid.bg-light.p-0.mt-3
   .container
+    h4.links-color
+      = link_to 'New Post', new_admin_post_path
     - @posts.includes(:user).each do |post|
       .card.my-3
         div
@@ -14,5 +16,3 @@
 
         .title-post
           = link_to 'File here', post.file.url, target: :_blank unless post.file.url.blank?
-    h4.links-color
-      = link_to 'New Post', new_admin_post_path
