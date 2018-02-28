@@ -56,8 +56,4 @@ class Admin::PostsController < Admin::AdminsController
   def set_group
     @group = Group.find(params[:group])
   end
-
-  def post_params
-    params.require(:post).permit(:title, :body, :file)
-  end
 end
