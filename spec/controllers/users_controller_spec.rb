@@ -1,24 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe Admin::UsersController, type: :controller do
-  before :each do
+  
+  # let(:user) { FactoryBot.create(:user) }
+  before(:each) do
     user = FactoryBot.create(:user)
-    sign_in(user)
+    sign_in user
   end
 
   describe 'GET #index' do
-    subject { get :index }
-    before do
-      5.times do
-        FactoryBot.create(:user)
+    context 'when admin log in ' do
+      it 'renders index page' do
+        get :index
+        expect(response).to render_template(:index)
       end
-    end
 
-    context 'when admin go to dashboard' do
-      let(:users) { User.all }
-      it 'return index page with all users' do
-        expect(subject).to render_template(:index)
-        expect(:users).to match(User.all)
+      it 'return list of all users' do
+        user = controller.current_user
+        get :index
+        expect(assigns(:users)).to match_array([user])
       end
     end
   end
