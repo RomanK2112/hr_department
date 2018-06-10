@@ -11,8 +11,12 @@ class Admin::UsersController < Admin::AdminsController
 
   def create
     @user = User.new(user_params)
-    if @user.save!
+    if @user.save
       redirect_to admin_admins_path
+    else
+      notice = @user.errors.full_messages.to_sentence + "<br/>"
+      flash[:danger] = notice
+      redirect_to new_admin_user_path
     end
   end
 
@@ -47,7 +51,7 @@ class Admin::UsersController < Admin::AdminsController
 
   def user_params
     params.require(:user).permit(
-      :user_id, :first_name, :last_name, :email, :password, :password_confirmation
+      :first_name, :last_name, :email, :password, :password_confirmation
     )
   end
 end
