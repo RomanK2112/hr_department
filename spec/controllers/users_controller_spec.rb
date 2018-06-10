@@ -61,4 +61,18 @@ RSpec.describe Admin::UsersController, type: :controller do
       end
     end
   end
+
+  describe 'GET #edit' do
+    it 'assigns requested user to @user' do
+      user = FactoryBot.create(:user)
+      get :edit, params: { id: user }
+      expect(assigns(:user)).to eq(user)
+    end
+
+    it 'renders the :edit template' do
+      user = FactoryBot.create(:user)
+      get :edit, params: { id: user }
+      expect(response).to render_template(:edit)
+    end
+  end
 end
