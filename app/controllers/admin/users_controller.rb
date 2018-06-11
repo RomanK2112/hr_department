@@ -14,8 +14,7 @@ class Admin::UsersController < Admin::AdminsController
     if @user.save
       redirect_to admin_admins_path
     else
-      notice = @user.errors.full_messages.to_sentence + "<br/>"
-      flash[:danger] = notice
+      flash[:danger] = @user.errors.full_messages.to_sentence
       redirect_to new_admin_user_path
     end
   end
@@ -24,18 +23,23 @@ class Admin::UsersController < Admin::AdminsController
   end
 
   def update
-    if @user.valid_password?(params[:user][:current_password]) && @user.update_attributes(user_params)
+    if @user.update_attributes(user_params)
       bypass_sign_in(@user)
-      redirect_to admin_path(@user)
+      redirect_to admin_user_path(@user)
     else
-      flash[:error] = "You didn't update password"
+      flash[:danger] = @user.errors.full_messages.to_sentence
       render 'edit'
     end
   end
 
   def destroy
-    @user.destroy
-    redirect_back fallback_location: @user
+    if @user.present?
+      @user.destroy
+      redirect_back fallback_location: @user
+    else
+      flash[:danger] = @user.errors.full_messages.to_sentence
+      redirect_back fallback_location: @user
+    end
   end
 
   def toggle_admin
