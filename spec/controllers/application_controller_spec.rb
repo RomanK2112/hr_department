@@ -7,8 +7,8 @@ RSpec.describe ApplicationController, type: :controller do
     end
   end
 
-  let(:admin) { FactoryBot.create(:admin) }
-  let(:employee) { FactoryBot.create(:user) }
+  let(:admin) { create(:admin) }
+  let(:employee) { create(:user) }
 
   describe '#after_sign_in_path_for' do
     context 'when admin' do

@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Admin::UsersController, type: :controller do
 
-  let(:admin) { FactoryBot.create(:admin) }
-  let(:user) { FactoryBot.create(:user) }
+  let(:admin) { create(:admin) }
+  let(:user) { create(:user) }
   let(:back) { 'http://google.com' }
 
   before { request.env['HTTP_REFERER'] = back }
@@ -43,12 +43,12 @@ RSpec.describe Admin::UsersController, type: :controller do
     context 'with valid user params' do
       it 'creates new user' do
         expect {
-          post :create, params: { user: FactoryBot.attributes_for(:user) }
+          post :create, params: { user: attributes_for(:user) }
         }.to change(User, :count).by(1)
       end
 
       it 'redirects to admin path' do
-        post :create, params: { user: FactoryBot.attributes_for(:user) }
+        post :create, params: { user: attributes_for(:user) }
         expect(response).to redirect_to admin_admins_path
       end
     end
@@ -56,12 +56,12 @@ RSpec.describe Admin::UsersController, type: :controller do
     context 'with invalid user params' do
       it 'does not save the new user in the database' do
         expect {
-          post :create, params: { user: FactoryBot.attributes_for(:invalid_params) }
+          post :create, params: { user: attributes_for(:invalid_params) }
         }.to_not change(User, :count)
       end
 
       it 'redirects to new template' do
-        post :create, params: { user: FactoryBot.attributes_for(:invalid_params) }
+        post :create, params: { user: attributes_for(:invalid_params) }
         expect(response).to redirect_to new_admin_user_path
       end
     end
@@ -69,13 +69,13 @@ RSpec.describe Admin::UsersController, type: :controller do
 
   describe 'GET #edit' do
     it 'assigns requested user to @user' do
-      user = FactoryBot.create(:user)
+      user = create(:user)
       get :edit, params: { id: user }
       expect(assigns(:user)).to eq(user)
     end
 
     it 'renders the :edit template' do
-      user = FactoryBot.create(:user)
+      user = create(:user)
       get :edit, params: { id: user }
       expect(response).to render_template(:edit)
     end
@@ -84,12 +84,12 @@ RSpec.describe Admin::UsersController, type: :controller do
   describe 'PATCH #update' do
     context 'with valid attributes' do
       it 'locates requested :user' do
-        patch :update, params: { id: admin, user: FactoryBot.attributes_for(:admin) }
+        patch :update, params: { id: admin, user: attributes_for(:admin) }
         expect(assigns(:user)).to eq(admin)
       end
 
       it 'changes @users attributes' do
-        patch :update, params: { id: admin, user: FactoryBot.attributes_for(
+        patch :update, params: { id: admin, user: attributes_for(
           :admin, first_name: 'Serj', last_name: 'Lupus'
         )}
         admin.reload
@@ -98,15 +98,15 @@ RSpec.describe Admin::UsersController, type: :controller do
       end
 
       it 'redirects to the updated @user' do
-        patch :update, params: { id: admin, user: FactoryBot.attributes_for(:admin) }
+        patch :update, params: { id: admin, user: attributes_for(:admin) }
         expect(response).to redirect_to admin_user_path(admin)
       end
     end
 
     context 'with invalid email' do
       it 'gives flash danger message and re render edit' do
-        user_params = FactoryBot.attributes_for(:admin, email: '123') 
-        patch :update, params: { id: admin, user: FactoryBot.attributes_for(
+        user_params = attributes_for(:admin, email: '123') 
+        patch :update, params: { id: admin, user: attributes_for(
           :admin, first_name: nil, last_name: nil, email: '123'
           ) }
         admin.update_attributes(user_params)

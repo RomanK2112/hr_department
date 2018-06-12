@@ -36,6 +36,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.include Warden::Test::Helpers
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include FactoryBot::Syntax::Methods
 
   [:controller, :view, :request].each do |type|
     config.include ::Rails::Controller::Testing::TestProcess, :type => type
