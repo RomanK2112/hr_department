@@ -28,7 +28,7 @@ RSpec.describe Admin::UsersController, type: :controller do
   end
 
   describe 'GET #new' do
-    it 'assings and new User to @user' do
+    it 'assings new User to @user' do
       get :new
       expect(assigns(:user)).to be_a_new(User)
     end
@@ -105,7 +105,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     context 'with invalid email' do
       it 'gives flash danger message and re render edit' do
-        user_params = attributes_for(:admin, email: '123') 
+        user_params = attributes_for(:admin, email: '123')
         patch :update, params: { id: admin, user: attributes_for(
           :admin, first_name: nil, last_name: nil, email: '123'
           ) }
@@ -116,7 +116,7 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
   end
 
-  describe 'DELETE #destoy' do
+  describe 'DELETE #destroy' do
     context 'when user present' do
       it 'deletes the user and redirects to fallback location' do
         expect {
