@@ -126,4 +126,43 @@ RSpec.describe Admin::GroupsController, type: :controller do
       end
     end
   end
+
+  describe 'POST #add_member' do
+    context 'when user present' do
+      it 'assings requested group to @group' do
+        post :add_member, params: { id: group, user: admin }
+        expect(assigns(:group)).to eq(group)
+      end
+  
+      it 'saves requested user to requested group' do
+        expect {
+          post :add_member, params: { id: group, user: admin }
+        }.to change(group.users, :count).by(1)
+      end
+  
+      it 'assings flash message to notice' do
+        post :add_member, params: { id: group, user: admin }
+        expect(flash[:notice]).to eq('You add new member')
+      end
+  
+      it 'redirects to admin_groups_path' do
+        post :add_member, params: { id: group, user: admin }
+        expect(response).to redirect_to(admin_groups_path)
+      end
+    end
+
+    context 'when user not present' do
+      before do
+        post :add_member, params: { id: group, user: nil }
+      end
+
+      it 'assings flash error message' do
+        expect(flash[:error]).to eq('There is no user')
+      end
+
+      it 'redirects to admin_groups_path' do
+        expect(response).to redirect_to(admin_groups_path)
+      end
+    end
+  end
 end

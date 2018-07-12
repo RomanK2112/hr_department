@@ -38,12 +38,12 @@ class Admin::GroupsController < Admin::AdminsController
   end
 
   def add_member
-    user = User.find(params[:user])
-    if user.present?
+    if params[:user].present?
+      user = User.find(params[:user])
       @group.users.push(user)
       flash[:notice] = 'You add new member'
     else
-      flash[:error] = 'This user already present in this group'
+      flash[:error] = 'There is no user'
     end
 
     redirect_to admin_groups_path
