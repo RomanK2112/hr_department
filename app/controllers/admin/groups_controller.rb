@@ -1,12 +1,9 @@
 class Admin::GroupsController < Admin::AdminsController
-  before_action :set_group, only: [:show, :edit, :update, :destroy, :add_member, :destroy_member]
+  before_action :set_group, only: [:edit, :update, :destroy, :add_member, :destroy_member]
 
   def index
     @groups = Group.all
     @users = User.all
-  end
-
-  def show
   end
 
   def new
