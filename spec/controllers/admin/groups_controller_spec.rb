@@ -54,6 +54,20 @@ RSpec.describe Admin::GroupsController, type: :controller do
     end
   end
 
+  describe 'GET #edit' do
+    before do
+      get :edit, params: { id: group }
+    end
+
+    it 'assings requested group to @group' do
+      expect(assigns(:group)).to eq(group)
+    end
+
+    it 'renders template edit' do
+      expect(response).to render_template(:edit)
+    end
+  end
+
   describe 'POST #create' do
     context 'when @group save' do
       it 'saves new group in the database' do
@@ -79,50 +93,6 @@ RSpec.describe Admin::GroupsController, type: :controller do
 
       it 'renders new template' do
         expect(response).to render_template(:new)
-      end
-    end
-  end
-
-  describe 'GET #edit' do
-    before do
-      get :edit, params: { id: group }
-    end
-
-    it 'assings requested group to @group' do
-      expect(assigns(:group)).to eq(group)
-    end
-
-    it 'renders template edit' do
-      expect(response).to render_template(:edit)
-    end
-  end
-
-  describe 'PUT #update' do
-    context 'with valid attributes' do
-      before do
-        put :update, params: { id: group, group: attributes_for(:group, name: 'Test') }
-      end
-
-      it 'assings requested group to @group' do
-        expect(assigns(:group)).to eq(group)
-      end
-
-      it 'updates name of requested group' do
-        expect(group.reload.name).to eq('Test')
-      end
-
-      it 'redirects to admin_groups_path' do
-        expect(response).to redirect_to(admin_groups_path)
-      end
-    end
-
-    context 'with invalid params' do
-      before do
-        put :update, params: { id: group, group: attributes_for(:group, name: nil) }
-      end
-
-      it 'renders edit page again' do
-        expect(response).to render_template(:edit)
       end
     end
   end
@@ -163,6 +133,54 @@ RSpec.describe Admin::GroupsController, type: :controller do
       it 'redirects to admin_groups_path' do
         expect(response).to redirect_to(admin_groups_path)
       end
+    end
+  end
+
+  describe 'PUT #update' do
+    context 'with valid attributes' do
+      before do
+        put :update, params: { id: group, group: attributes_for(:group, name: 'Test') }
+      end
+
+      it 'assings requested group to @group' do
+        expect(assigns(:group)).to eq(group)
+      end
+
+      it 'updates name of requested group' do
+        expect(group.reload.name).to eq('Test')
+      end
+
+      it 'redirects to admin_groups_path' do
+        expect(response).to redirect_to(admin_groups_path)
+      end
+    end
+
+    context 'with invalid params' do
+      before do
+        put :update, params: { id: group, group: attributes_for(:group, name: nil) }
+      end
+
+      it 'renders edit page again' do
+        expect(response).to render_template(:edit)
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    it 'assings requested group to @group' do
+      delete :destroy, params: { id: group }
+      expect(assigns(:group)).to eq(group)
+    end
+
+    it 'destroy requested group' do
+      expect {
+        delete :destroy, params: { id: group }
+      }.to change(Group, :count).by(0)
+    end
+
+    it 'redirects to admin_groups_path' do
+      delete :destroy, params: { id: group }
+      expect(response).to redirect_to(admin_groups_path)
     end
   end
 end
