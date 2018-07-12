@@ -3,7 +3,7 @@
     | #{@employee.name}
   h4
     | My current email: #{@employee.email}
-  = form_for @employee, url: admin_user_path(@employee), html: { method: :put } do |f|
+  = form_for @employee, url: employee_path(@employee), html: { method: :put } do |f|
     .form-group.field
       = f.label :email, for: 'exampleInputEmail1'
         | Email address
@@ -22,10 +22,5 @@
       br
       = f.password_field :password_confirmation, autocomplete: "off", id: "exampleInputPassword3", class: "form-control", placeholder: "Password", required: true
       br
-    .form-group.field
-      = f.label :current_password
-        | We need your current password to confirm your changes
-      br
-      = f.password_field :current_password, autocomplete: "off", class: "form-control", required: true
     .actions
       = f.submit "Update", type: "submit", class: "btn btn-primary"
