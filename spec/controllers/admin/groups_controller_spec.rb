@@ -39,4 +39,47 @@ RSpec.describe Admin::GroupsController, type: :controller do
       expect(response).to render_template(:edit)
     end
   end
+
+  describe 'GET #new' do
+    before do
+      get :new
+    end
+
+    it 'assigns new Group to @group' do
+      expect(assigns(:group)).to be_a_new(Group)
+    end
+
+    it 'renders the new template' do
+      expect(response).to render_template(:new)
+    end
+  end
+
+  describe 'POST #create' do
+    context 'when @group save' do
+      it 'saves new group in the database' do
+        expect {
+          post :create, params: { group: attributes_for(:group) }
+        }.to change(Group, :count).by(1)
+      end
+
+      it 'redirects to admin_groups_path' do
+        post :create, params: { group: attributes_for(:group) }
+        expect(response).to redirect_to(admin_groups_path)
+      end
+    end
+
+    context 'when @group name nil' do
+      before do
+        post :create, params: { group: { name: nil } }
+      end
+
+      it 'not save new group in the database' do
+        expect(flash[:error]).to eq('Group was not saved!')
+      end
+
+      it 'renders new template' do
+        expect(response).to render_template(:new)
+      end
+    end
+  end
 end

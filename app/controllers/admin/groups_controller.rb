@@ -16,6 +16,7 @@ class Admin::GroupsController < Admin::AdminsController
     if @group.save
       redirect_to admin_groups_path
     else
+      flash[:error] = 'Group was not saved!'
       render :new
     end
   end
