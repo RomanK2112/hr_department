@@ -55,4 +55,42 @@ RSpec.describe EmployeesController, type: :controller do
       expect(assigns(:post)).to eq(post)
     end
   end
+
+  describe 'PUT #update' do
+    context 'when update email' do
+      before do
+        put :update, params: { id: user, user: { email: 'test@gmail.com'} }
+      end
+
+      it 'should assign user to @employee' do
+        expect(assigns(:employee)).to eq(user)
+      end
+
+      it 'should update employee email' do
+        expect(user.reload.email).to eq('test@gmail.com')
+      end
+
+      it 'should redirect to employees path' do
+        expect(response).to redirect_to(employees_path)
+      end
+    end
+
+    context 'when email not present' do
+      before do
+        put :update, params: { id: user, user: { email: nil } }
+      end
+
+      it 'should give rollback' do
+        expect(user.reload.email).not_to be_nil
+      end
+
+      it 'assigns flash message to error' do
+        expect(flash[:error]).to eq("You didn't update password")
+      end
+
+      it 'render again edit page' do
+        expect(response).to render_template(:edit)
+      end
+    end
+  end
 end
