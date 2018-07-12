@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Admin::GroupsController, type: :controller do
   let(:admin) { create(:admin) }
+  let(:group) { create(:group) }
 
   before do
     sign_in admin
@@ -22,6 +23,20 @@ RSpec.describe Admin::GroupsController, type: :controller do
 
     it 'render index template' do
       expect(response).to render_template(:index)
+    end
+  end
+
+  describe 'GET #edit' do
+    before do
+      get :edit, params: { id: group }
+    end
+
+    it 'assings group to @group' do
+      expect(assigns(:group)).to eq(group)
+    end
+
+    it 'render edit template' do
+      expect(response).to render_template(:edit)
     end
   end
 end
