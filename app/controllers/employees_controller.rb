@@ -10,7 +10,7 @@ class EmployeesController < ApplicationController
   end
 
   def update
-    if @employee.valid_password?(params[:user][:current_password]) && @employee.update_attributes(user_params)
+    if @employee.update_attributes(employee_params)
       bypass_sign_in(@employee)
       redirect_to employees_path
     else
@@ -27,5 +27,9 @@ class EmployeesController < ApplicationController
 
   def set_employee
     @employee = current_user
+  end
+
+  def employee_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
   end
 end
